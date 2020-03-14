@@ -8,6 +8,8 @@ image_url: "featured/2019-01-29-hello-world.png"
 
 I hope you like it!
 
+![Hello world image](/assets/images/posts/2019-01-29/hello-world.png)
+
 # Highlighter
 ## Ruby
 ```ruby
@@ -48,6 +50,8 @@ public class java {
   </body>
 </html>
 ```
+
+![Hello world image 2](/assets/images/posts/2019-01-29/hello-world.png)
 
 ## Console
 ```console
