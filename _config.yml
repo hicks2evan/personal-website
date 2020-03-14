@@ -1,6 +1,8 @@
 layout: stacked
 style: light
 
+repository: hicks2evan/hicks2evan.github.io
+
 plugins:
   - jekyll-octicons
   - jekyll-github-metadata
