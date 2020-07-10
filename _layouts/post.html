@@ -45,6 +45,7 @@
       <img src="/assets/images/{{ page.image_url }}" class="mx-auto rounded-1 mb-3" alt="{{ page.image_url }}">
       {% endif %}
       <h1 class="f00-light lh-condensed">{{ page.title }}</h1>
+      <h2>{{ page.subtitle }}</h2>
       <p class="{% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %} mb-5">Published {{ page.date | date: "%b %d, %Y"}}</p>
       {{ post_body }}
     </div>
