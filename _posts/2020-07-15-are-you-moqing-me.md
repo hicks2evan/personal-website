@@ -8,16 +8,19 @@ When I was looking for my first job in software I interviewed with a company who
 
 ![Hand-drawn Yeoman logo](/assets/images/posts/2020-07-15/1.png)
 
-The interviewers reviewed my project with me on the phone. They liked how I had things organized and how I had reused my Angular components throughout the site- but then they had a question. What’s in the test directory? How does this test code work? Can you tell us the difference between a unit test and an integration test?
+The interviewers reviewed my project with me on the phone. They liked how I had things organized and how I had reused my Angular components throughout the site- but then they had a question. **What’s in the test directory? How does this test code work? Can you tell us the difference between a unit test and an integration test?**
 
 Like many students, I had been given a few privileged opportunities to be exposed to software testing:
 1. I had taken a course called “Software Engineering I” at my university which covered testing as a topic along with UML, non-technical requirements, and the like.
 2. I had probably read a Medium article espousing TDD as the *only way* to write quality software.
 3. I had an internship at an organization that *had* unit tests, even if my intern project *did not*.
 
+
 > *“Well, a unit test is designed to test just a section of the code, when the integration test is responsible for testing how things wire together, right?”*
 
+
 > *“Ok. For the sections of the code that aren’t being tested in a unit test, how do you simulate them? How do you make sure the unit of code you are testing has what it needs to do its job?”*
+
 
 My test directory didn’t have anything but the default yeoman-generated [Mocha](https://mochajs.org/) tests. I hadn’t run npm test in my development. And not too surprisingly, I didn’t end up getting an offer.
 
@@ -53,17 +56,17 @@ public class MrPotatoHead {
 }
 {% endhighlight csharp %}
 
-In this case, Mr. Potato Head’s body needs a left arm, right arm, eyes, a nose, ears, a mustache, a hat, and a pair of shoes. In UML-speak:
+In this case, Mr. Potato Head’s body needs a left arm, right arm, and a hat. It also could need things like eyes, a nose, ears, a mustache, and a pair of shoes. In UML-speak:
 
 ![Mr. Potato Head UML Class Diagram](/assets/images/posts/2020-07-15/4.png)
 
 The point they were trying to get at in my interview was that in a unit test you should only be *instantiating* the code you are testing, and *mocking* the code that you aren’t testing. 
 
-A mock simulates the functionality of the code your unit test depends on, but doesn’t implement it. Kind of like sticking a shoelace in the hole where Mr. Potato Head’s left arm goes. It isn’t a left arm, it’s just like a left arm.
+A mock simulates the functionality of the code your unit test depends on, but doesn’t implement it. Kind of like sticking a shoelace in the hole where Mr. Potato Head’s left arm goes. It isn’t a left arm, it’s just able to connect to the potato body *like a left arm*.
 
 ![Mr. Potato Head other objects inserted](/assets/images/posts/2020-07-15/5.png)
 
-So how is this handled in code? Most unit tests use some kind of mocking framework. In C# you can use moq to mock classes based off of what methods are laid out in their interfaces. Just like inserting a shoelace in Mr. Potato Head’s arm hole, if LeftArm implements the IArm interface, then I can mock IArm and pass it as a parameter to the MrPotatoHead class I want to test.
+So how is this handled in code? Most unit tests use some kind of mocking framework. In C# you can use moq to mock classes based off of what methods are laid out in their interfaces. Just like inserting a shoelace in Mr. Potato Head’s arm hole, if LeftArm implements the IArm interface, then I can mock IArm and pass it as a parameter to the MrPotatoHead class to test.
 
 {% highlight csharp %}
 [TestClass]
@@ -126,7 +129,7 @@ Finally, mocking doesn’t just let you specify how your simulated dependencies 
 
 How can you check in your test if the contents of the file your code writes are correct? You could just instantiate your file writer, but then you are testing two pieces of functionality at once, not good!
 
-In Moq you can also verify that certain methods are called on your mock with parameters that meet certain criteria, and how many times they are called.
+In Moq you can also verify that methods are called on your mock with parameters that meet certain criteria, as well as how many times they are called.
 
 {% highlight csharp %}
 [TestMethod]
@@ -151,13 +154,13 @@ public void WritePotatoProfile_Success_ReturnsId()
 }
 {% endhighlight csharp %}
 
-So if you are expecting your code to write 5 files containing potato dating bios, you can verify that it is.
+So if you are expecting your code to write 5 files containing potato dating bios, you can precisely verify that it is.
 
 # What could go wrong?
-## Your unit tests only test the happy path
+## 1. Your unit tests only test the happy path
 ![Mr. Potato Head fallen apart](/assets/images/posts/2020-07-15/8.png)
 
-In general your tests should probably test the happy path, an edge case scenario, and an exception case at least. Writing tests for your exception scenarios will help you better understand how your code responds to exceptions and verify that it behaves correctly. In moq you can mock exceptions to simulate the expected exceptions.
+In general your tests should probably test the happy path, an edge case scenario, and an exception case at least. Writing tests for your exception scenarios will help you better understand how your code responds to exceptions and verify that it behaves correctly. In Moq, you can mock exceptions to simulate the expected exceptions in your system.
 
 {% highlight csharp %}
 [TestMethod]
@@ -200,7 +203,7 @@ public void WritePotatoProfile_Failure_ThrowsException()
 }
 {% endhighlight csharp %}
 
-## Your tests don’t assert anything meaningful
+## 2. Your tests don’t assert anything meaningful
 
 Your unit tests should provide value and increase confidence in the quality of your software. This is more of an issue of assertions than mocking, but your tests should assert something meaningful about the contents of what you are testing.
 
@@ -221,12 +224,12 @@ public void MeaninglessTest()
 }
 {% endhighlight csharp %}
 
-These assertions do little more than the compiler is doing on its own, and will pass even if the code doesn’t work as designed. Not good.
+These assertions do little more than the compiler is doing on its own, and will pass even if the code doesn’t work as designed. Not good. A test is only as good as its assertions.
 
-## Your test code is more *code* than test
+## 3. Your test code is more *code* than test
 ![Mr. Potato Heads side by side stolen arm](/assets/images/posts/2020-07-15/9.png)
 
-Your test code doesn’t need super smart implementation like your code does. This sounds obvious, but it is a pretty easy mistake. The most heinous example is copying implementation code to help you calculate what you expect for your test. Imaging you had a silly little method to calculate some number.
+Your test code doesn’t need super smart implementation like your code does. This sounds obvious, but it is a pretty easy mistake. The most heinous example is copying implementation code to help you calculate what you expect for your test. Imagine you had a silly little method to calculate some number.
 
 {% highlight csharp %}
 public double CalculatePotatoNumber(int input) {
@@ -256,7 +259,7 @@ Really, if the PotatoNumber formula was typed in incorrectly, it won’t have be
 
 When I first came out of school, I felt like code was only “good” if it did something. Hard-coded values were “bad”. In this case it is actually much better to hard-code what you expect and validate against that. If you have a bug and your test is dumb, it will catch it instead of replicating it.
 
-## Your dependencies are really hard to mock
+## 4. Your dependencies are really hard to mock
 
 When does mocking code break down? Usually when the code you are trying to test has a lot of responsibility and calls its dependencies in a lot of different ways. Or maybe your code depends on a class that is really hard to mock… like some kind of in house static class for bitmap formatting. Gnarly, dude! In my experience, this is usually more of a code organization issue. Common appearances in the wild:
 
@@ -269,15 +272,10 @@ In object-oriented development, if your code is easily mocked and tested, you wi
 # You don’t need to be a TDD guru to write meaningful unit tests
 ![Mr. Potato Head mountain guru](/assets/images/posts/2020-07-15/10.png)
 
-Your code base doesn’t need to have 100% code coverage, even if it does it probably won’t have 100% scenario coverage. Those are just statistics for your management to put in a slide deck. The biggest takeaway I had from learning how to use moq for my C# code was simple:
+Your code base doesn’t need to have 100% code coverage, even if it does it probably won’t have 100% scenario coverage. Those are just statistics for your management to put in a slide deck. The biggest takeaway I had from learning how to use Moq for my C# code was simple:
 
 > *Writing code with your mocks and tests in mind helps you write cleaner code.*
 
 > *Covering your code base with meaningful unit tests will give you increased confidence to continue to make changes as your code base grows.*
 
-
 > *Breath in. Breath out.*
-
-
-
-
