@@ -1,4 +1,12 @@
-# Get started building your personal website
+# Evan Hicks personal site
+This is a repo for Evan Hicks' personal website at hicks2evan.github.io. It was forked from github/personal-website. I would recommend it to anybody looking to spin up a quick website to highlight their work in GitHub repositories, and create and share blog posts in markdown.
+
+Details below are retained from the original repository, including directions to set up development of the site on local and publish using GitHub Pages.
+
+## Blog posts code
+Code ffrom blog posts can be found in https://github.com/hicks2evan/blog-code-examples
+
+## Get started building your personal website
 
 ### Showcase your software development skills
 
