@@ -13,12 +13,15 @@
 {% if page.path contains '_posts' %}
   {% assign page_title = page.title %}
   {% assign meta_description = page.content | strip_html | strip_newlines | xml_escape | truncate: 300 %}
+  {% assign page_thumbnail = "https://hicks2evan.github.io/assets/images/" | append: page.image_url %}
 {% elsif page.path contains 'about' %}
   {% assign page_title = user.name | append: " | About" %}
   {% assign meta_description = "Learn more about Evan. Evan is a software engineer and cartoonist located in Denver, Colorado." %}
+  {% assign page_thumbnail = user.avatar_url %}
 {% else %}
   {% assign page_title = user.name | append: " | Home" %}
   {% assign meta_description = "A personal site for hicks2evan, Evan Hicks. See github projects, read blog posts, learn more about Evan." %}
+  {% assign page_thumbnail = user.avatar_url %}
 {% endif %}
 
 <!doctype html>
@@ -37,8 +40,8 @@
     <meta charset="utf-8">
     <title>{{ page_title }}</title>
     <meta name="description" content="{{ meta_description }}" />
-    <meta property="og:title" content="{{  }}" />
-    <meta property="og:image" content="{{ user.avatar_url }}" />
+    <meta property="og:title" content="{{ page_title }}" />
+    <meta property="og:image" content="{{ page_thumbnail }}" />
     <meta property="og:description" content="{{ meta_description }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ "/assets/styles.css" | relative_url }}" rel="stylesheet" type="text/css">
