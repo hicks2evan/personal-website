@@ -1,7 +1,7 @@
 ---
 title: "Trivial Analytics"
 subtitle: "Extracting data about common Jeopardy! topics using Python"
-published: false
+published: true
 image_url: "featured/2020-10-15.png"
 ---
 
@@ -11,12 +11,16 @@ The purpose of this post is to try to use some data analytics to answer a questi
 
 It's pretty natural to start to try to answer this question with data. For our particular trivia game, if we had the data it would be great to know which *things* appear the most in questions and answers. Knowing, for example, that Beyonce is 10% more likely to appear in an audio round than Bruno Mars is a pretty critical piece of information for somebody with a limited amount of time to prepare to win that sweet, sweet $20 bar cash.
 
+![Bruno Mars and Beyonce playing Jeopardy! side by side with audio equipment around them.](/assets/images/posts/2020-10-15/1.png)
+
 Extracting this type of insight is 'non-trivial', even assuming a perfect world where I had access to a data set with my bar trivia game's questions and answers. No such data set exists. But, after some sleuthing I found a reddit poster sharing a data set with 200,000+ Jeopardy! questions [here](https://www.reddit.com/r/datasets/comments/1uyd0t/200000_jeopardy_questions_in_a_json_file/). Bad news for my trivia team, I don't have the resources to crack the code our game, but maybe we can learn something by asking an amended question of the Jeopardy! data:
 
 > If you only could study 10 topics in preparation for Jeopardy!, which topics should you study?
 
 ## Working with the data
 The first step was to set up the data in a way that would be easy for me to work with in this project. I spun up a mySQL database and added a `question` table to hold the question data from reddit. There were a number of columns that I imported, but mostly we care about the `question` and `answer` fields.
+
+![Machine with worker loading television sets displaying Jeopardy! question values onto a conveyor belt, goes through a series of transforms to a console diplay with another worker observing output at a keyboard. Python logo, a symbol representing a CSV sheet are on the side of the machine.](/assets/images/posts/2020-10-15/2.png)
 
 The Juptyer notebook for this post is set up to easily connect to a local mySQL database assuming it is set up a similar way. Python can connect to mySQL using a package called `mysql.connector`.
 
@@ -71,11 +75,6 @@ cursor.close()
     Question: | 'A short war between Israel & Egypt & Syria in October 1973 was named for this high holiday'
     Answer:   | Yom Kippur
     
-
-
-
-
-
     True
 
 
@@ -83,9 +82,11 @@ cursor.close()
 So now we have a database set up and we can write queries to ask it smart things. Like mentioned above, however, this requires us to know what we are asking. Questions like *what 10 things should I study* won't fly because we can't write a query yet for *things* we don't know we care about. We need some way to figure out what *things* in the questions are important.
 
 ## Named Entity Recognition
-So what do I mean by *thing*? One naive solution to our problem might be to just look for common appearances of certain words. For example, if "America" appears regularly in questions, then that might be an important country to study, right?Well, practiced trivia players know that trivia is all about going more fine-grained than that. American History may be a very important subject to study, but at the end of the day, you may need to know some specifics about Hamilton that you may gloss over if you only study American History broadly. 
+So what do I mean by *thing*? One naive solution to our problem might be to just look for common appearances of certain words. For example, if "America" appears regularly in questions, then that might be an important country to study, right? Well, practiced trivia players know that trivia is all about going more fine-grained than that. American History may be a very important subject to study, but at the end of the day, you may need to know some specifics about Hamilton that you may gloss over if you only study American History broadly. 
 
 Consider another issue of the word count solution, it may tell you that it is quite important to know about "Alexander", but *Alexander-who?* Alexander Hamilton and Alexander the Great might both be important, but the word count solution doesn't tell us who is *more* important.
+
+![Alexander Hamilton and Alexander the Great are hooked up by their craniums to an apperatus that has determined they are both named "Alexander".](/assets/images/posts/2020-10-15/3.png)
 
 Another idea is to use the `category` of a question. That should help us get to the meat of what a question is about, but viewers of Jeopardy! will know well that the category is usually not useful, if not downright distracting. Categories like "African Geography" are way too broad to be useful. Meanwhile, many of the Jeapordy! categories are unique to the game, playful rhymes or word games.
 
@@ -112,7 +113,7 @@ printAnnotation(q)
     [('The Prince of Egypt', 'WORK_OF_ART'), ('Ralph Fiennes', 'PERSON')]
 
 
-Here we can see spaCy was able to identidy to named entities in this question, "The Prince of Egypt" was labeled as a work of art (animated film, go watch it), and "Ralph Fiennes" was labeled as a person. This works pretty well generally, but it isn't perfect. For example, below it has decided that "Israel & Egypt & Syria" are an organization all-together. Hopefully these things will *come out in the wash* so to speak, but we should keep an eye out for misleading entities.
+Here we can see spaCy was able to identify to named entities in this question, "The Prince of Egypt" was labeled as a work of art (animated film, go watch it), and "Ralph Fiennes" was labeled as a person. This works pretty well generally, but it isn't perfect. For example, below it has decided that "Israel & Egypt & Syria" are an organization all-together. Hopefully these things will *come out in the wash* so to speak, but we should keep an eye out for misleading entities.
 
 
 
@@ -126,6 +127,8 @@ printAnnotation(q)
 
 ## Mapping Questions to Named Entities
 Next thing to do to get an idea of which named entities occur frequently, we want to map questions and answer text to named entities. For this, we need a new table to track those entities and their labels, as well as a mapping table to handle the many to many relationship of question to named_entity. For those of you who aren't familiar with the idea of using mapping tables for many to many relationships in normalized databases, check out [this post](https://www.joinfu.com/2005/12/managing-many-to-many-relationships-in-mysql-part-1/).
+
+![Entity relationship diagram describing the many to many relationship problem given two entities. It shows an example without mapping, and then with a mapping table.](/assets/images/posts/2020-10-15/4.png)
 
 With that in place, we can set up some templated queries using template literals in Python. Establishing these common uses up front will allow us to get some reuse out of them as we go through the remainder of the project.
 
@@ -207,50 +210,12 @@ cursor.close()
     Deleting previously seeded records...
     Starting get for offset 0...
     Starting get for offset 5000...
-    Starting get for offset 10000...
-    Starting get for offset 15000...
-    Starting get for offset 20000...
-    Starting get for offset 25000...
-    Starting get for offset 30000...
-    Starting get for offset 35000...
-    Starting get for offset 40000...
-    Starting get for offset 45000...
-    Starting get for offset 50000...
-    Starting get for offset 55000...
-    Starting get for offset 60000...
-    Starting get for offset 65000...
-    Starting get for offset 70000...
-    Starting get for offset 75000...
-    Starting get for offset 80000...
-    Starting get for offset 85000...
-    Starting get for offset 90000...
-    Starting get for offset 95000...
-    Starting get for offset 100000...
-    Starting get for offset 105000...
-    Starting get for offset 110000...
-    Starting get for offset 115000...
-    Starting get for offset 120000...
-    Starting get for offset 125000...
-    Starting get for offset 130000...
-    Starting get for offset 135000...
-    Starting get for offset 140000...
-    Starting get for offset 145000...
-    Starting get for offset 150000...
-    Starting get for offset 155000...
-    Starting get for offset 160000...
-    Starting get for offset 165000...
-    Starting get for offset 170000...
-    Starting get for offset 175000...
-    Starting get for offset 180000...
-    Starting get for offset 185000...
+    Starting get for offset 10000...]
+    ...
     Starting get for offset 190000...
     Starting get for offset 195000...
     Done, closing...
-
-
-
-
-
+    
     True
 
 
@@ -282,11 +247,7 @@ cursor.close()
     ('1', 889)
     ('greek', 772)
     ('american', 766)
-
-
-
-
-
+    
     True
 
 
@@ -354,11 +315,6 @@ cursor.close()
     ('\'One edition calls this Darwin opus one of "the most readable and approachable"" of revolutionary scientific works\'"', 'CARDINAL')
     ('\'One edition calls this Darwin opus one of "the most readable and approachable"" of revolutionary scientific works\'"', 'CARDINAL')
     ("'If Joe DiMaggio's hitting streak had gone one more game in 1941, this company would have given him a $10,000 contract'", 'CARDINAL')
-    
-
-
-
-
 
     True
 
@@ -366,7 +322,7 @@ cursor.close()
 
 It looks like there are some entity labels that we can rule out. "ORDINAL", "CARDINAL", and "NORP" appear to be presenting an issue already. At this point, one might start to wonder if it is less about entity labels we don't care about, and more about the few we *do* care about. 
 
-Interestingly, the first appearance of a topic that feels truly "trivial" in nature is "The Clue Crew" with 363 occurrences in questions. Looking closely to see how it is labeled, "The Clue Crew" (the group from the Nancy Drew childrens book series) is an "ORG". Glancing through some of the common labels, it looks like we might care about "PERSON", "ORG" and "WORK_OF_ART" at least as a start.
+Interestingly, the first appearance of a topic that feels truly *trivial* in nature is "The Clue Crew" with 363 occurrences in questions. Looking closely to see how it is labeled, "The Clue Crew" (the group from the Nancy Drew childrens book series) is an "ORG". Glancing through some of the common labels, it looks like we might care about "PERSON", "ORG" and "WORK_OF_ART" at least as a start.
 
 
 ```python
@@ -399,10 +355,6 @@ cursor.close()
     ('lincoln', 129)
     ('nfl', 123)
 
-
-
-
-
     True
 
 
@@ -412,6 +364,8 @@ Looks like someone looking to up their Jeopardy! game (or any well-rounded indiv
 Let me point out a couple of problems. "The Oscars", again, is a pretty broad category. Might be good to know it is worth going and memorizing, as far as award shows go, but it isn't quite as concrete as "Lincoln". Actually most of these results are organizations worth mentioning in a question, but not necessarily the topic of the question.
 
 This also doesn't necessarily get at which topics are best to study for Jeopardy!. Some other factors could come into play. As an example, reading all of "Shakespeare" is a lot of work, wouldn't it be nice to know that he is only marginally more necessary than "Harry Potter", but slightly less niche?
+
+![Cartesian coordinate diagram plotting categories of questions based on being more or less niche, and more or less frequent. The best categories to study would be both high frequency, and specific.](/assets/images/posts/2020-10-15/5.png)
 
 ## What next?
 
