@@ -1,5 +1,5 @@
 # Evan Hicks personal site
-This is a repo for Evan Hicks' personal website at hicks2evan.github.io. It was forked from github/personal-website. I would recommend it to anybody looking to spin up a quick website to highlight their work in GitHub repositories, and create and share blog posts in markdown.
+This is a repo for Evan Hicks' personal website at hicks2evan.github.io. It was forked from github/personal-website. I would recommend this to anybody looking to spin up a quick website to highlight their work in GitHub repositories, and create and share blog posts in markdown.
 
 Details below are retained from the original repository, including directions to set up development of the site on local and publish using GitHub Pages.
 
