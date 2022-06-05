@@ -1,0 +1,449 @@
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html class="min-height-full">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99594255-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-99594255-3');
+    </script>
+
+    <meta charset="utf-8">
+    <title>Trivial Analytics</title>
+    <meta name="description" content="The purpose of this post is to try to use some data analytics to answer a question that came up in a conversation between me and my trivia teammates. Before the coronavirus put our favorite bar trivia night on hold, my friends and I had a ritual of appearing there every Wednesday night at 7pm and..." />
+    <meta property="og:title" content="Trivial Analytics" />
+    <meta property="og:image" content="https://hicks2evan.github.io/assets/images/featured/2020-10-15.png" />
+    <meta property="og:description" content="The purpose of this post is to try to use some data analytics to answer a question that came up in a conversation between me and my trivia teammates. Before the coronavirus put our favorite bar trivia night on hold, my friends and I had a ritual of appearing there every Wednesday night at 7pm and..." />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/assets/styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body class="bg-white min-height-full" >
+
+
+
+
+
+  <div class="container-lg py-6 p-responsive text-center">
+    
+
+<img src="https://avatars.githubusercontent.com/u/23247607?v=4" class="circle mb-3" style="max-width: 150px;">
+<h1 class=" mb-2 lh-condensed">Evan Hicks</h1>
+
+
+
+
+    <div class="container-md f4 text-left border rounded-2 bg-white p-3 p-sm-5 mt-6">
+      <p class="f5"><a href="/" class="d-flex flex-items-center"><svg height="16" class="octicon octicon-chevron-left mr-2 v-align-middle" fill="#0366d6" aria-label="Home" viewBox="0 0 16 16" version="1.1" width="16" role="img"><path fill-rule="evenodd" d="M9.78 12.78a.75.75 0 01-1.06 0L4.47 8.53a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L6.06 8l3.72 3.72a.75.75 0 010 1.06z"></path></svg>Home</a></p>
+      
+      <img src="/assets/images/featured/2020-10-15.png" class="mx-auto rounded-1 mb-3" alt="featured/2020-10-15.png">
+      
+      <h1 class="f00-light lh-condensed">Trivial Analytics</h1>
+      <h2>Extracting data about common Jeopardy! topics using Python</h2>
+      <p class="text-gray mb-5">Published Oct 15, 2020</p>
+      
+  
+    
+
+    
+
+    
+
+    
+      <div class="col-sm-4 col-lg-3 d-flex flex-wrap flex-items-center d-sm-block float-sm-right border rounded-2 bg-white p-3 mb-5 ml-md-5">
+        <h3 class="text-gray-dark mr-3 mr-sm-0">Share</h3>
+        <ul class="d-flex d-sm-block list-style-none">
+          
+            <li class="mt-sm-3">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2F15%2Ftrivial-analytics%2F" title="Share on LinkedIn" class="d-flex flex-items-center">
+                <div style="width:32px"><svg height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18"><path d="M3.94 2A2 2 0 1 1 2 0a2 2 0 0 1 1.94 2zM4 5.48H0V18h4zm6.32 0H6.34V18h3.94v-6.57c0-3.66 4.77-4 4.77 0V18H19v-7.93c0-6.17-7.06-5.94-8.72-2.91z" fill="#959da5"/></svg></div><span class="d-none d-sm-inline-block text-gray-light">LinkedIn</span>
+              </a>
+            </li>
+          
+            <li class="mt-sm-3">
+              <a href="https://twitter.com/share?url=http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2F15%2Ftrivial-analytics%2F" title="Share on Twitter" class="d-flex flex-items-center">
+                <div style="width:32px"><svg height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.5 222.3"><path d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1" fill="#959da5"/></svg></div><span class="d-none d-sm-inline-block text-gray-light">Twitter</span>
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    
+  
+  <div class="article">
+    <p>The purpose of this post is to try to use some data analytics to answer a question that came up in a conversation between me and my trivia teammates. Before the coronavirus put our favorite bar trivia night on hold, my friends and I had a ritual of appearing there every Wednesday night at 7pm and answering 8 rounds of trivia questions on a variety of <a href="https://www.geekswhodrink.com/">geek pop-culture subjects</a>. The question that arose at our table was along these lines:</p>
+
+<blockquote>
+  <p>What would you give to know the 10 most important topics to study for bar trivia?</p>
+</blockquote>
+
+<p>It’s pretty natural to start to try to answer this question with data. For our particular trivia game, if we had the data it would be great to know which <em>things</em> appear the most in questions and answers. Knowing, for example, that Beyonce is 10% more likely to appear in an audio round than Bruno Mars is a pretty critical piece of information for somebody with a limited amount of time to prepare to win that sweet, sweet $20 bar cash.</p>
+
+<p><img src="/assets/images/posts/2020-10-15/1.png" alt="Bruno Mars and Beyonce playing Jeopardy! side by side with audio equipment around them." /></p>
+
+<p>Extracting this type of insight is ‘non-trivial’, even assuming a perfect world where I had access to a data set with my bar trivia game’s questions and answers. No such data set exists. But, after some sleuthing I found a reddit poster sharing a data set with 200,000+ Jeopardy! questions <a href="https://www.reddit.com/r/datasets/comments/1uyd0t/200000_jeopardy_questions_in_a_json_file/">here</a>. Bad news for my trivia team, I don’t have the resources to crack the code our game, but maybe we can learn something by asking an amended question of the Jeopardy! data:</p>
+
+<blockquote>
+  <p>If you only could study 10 topics in preparation for Jeopardy!, which topics should you study?</p>
+</blockquote>
+
+<h2 id="working-with-the-data">Working with the data</h2>
+<p>The first step was to set up the data in a way that would be easy for me to work with in this project. I spun up a mySQL database and added a <code class="language-plaintext highlighter-rouge">question</code> table to hold the question data from reddit. There were a number of columns that I imported, but mostly we care about the <code class="language-plaintext highlighter-rouge">question</code> and <code class="language-plaintext highlighter-rouge">answer</code> fields.</p>
+
+<p><img src="/assets/images/posts/2020-10-15/2.png" alt="Machine with worker loading television sets displaying Jeopardy! question values onto a conveyor belt, goes through a series of transforms to a console diplay with another worker observing output at a keyboard. Python logo, a symbol representing a CSV sheet are on the side of the machine." /></p>
+
+<p>The Juptyer notebook for this post is set up to easily connect to a local mySQL database assuming it is set up a similar way. Python can connect to mySQL using a package called <code class="language-plaintext highlighter-rouge">mysql.connector</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">mysql.connector</span>
+
+<span class="k">def</span> <span class="nf">connectToMySQL</span><span class="p">():</span>
+  <span class="n">mydb</span> <span class="o">=</span> <span class="n">mysql</span><span class="p">.</span><span class="n">connector</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s">"localhost"</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s">"service"</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s">"jeopardy!"</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s">"jeopardy_db"</span>
+  <span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"Connected."</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">()</span>
+  <span class="k">return</span> <span class="n">mydb</span>
+
+
+</code></pre></div></div>
+
+<p>With a connection to the database open, you can execute normal SQL queries. Right away we are able to ask some fairly smart things if we know what we are looking for, like <em>show me five questions about Egypt</em>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mydb</span> <span class="o">=</span> <span class="n">connectToMySQL</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"SELECT question, answer FROM question WHERE question like '%Egypt%' LIMIT 5"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Question: | "</span> <span class="o">+</span> <span class="n">question</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Answer:   | "</span> <span class="o">+</span> <span class="n">answer</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Connected.
+
+Question: | 'Cleopatra's Needle is a short walk from this Egyptian Temple in the Metropolitan Museum of Art'
+Answer:   | the Temple of Dendur
+
+Question: | 'In 46 B.C. this Egyptian came with Caesar to Rome, where her statue was placed in the temple of Venus Genetrix'
+Answer:   | Cleopatra
+
+Question: | '"The Prince of Egypt"" featured Ralph Fiennes as the voice of this stubborn ruler'"
+Answer:   | the Pharaoh
+
+Question: | 'This city of east central Egypt is the southern half of the site of ancient Thebes'
+Answer:   | Luxor
+
+Question: | 'A short war between Israel &amp; Egypt &amp; Syria in October 1973 was named for this high holiday'
+Answer:   | Yom Kippur
+
+True
+</code></pre></div></div>
+
+<p>So now we have a database set up and we can write queries to ask it smart things. Like mentioned above, however, this requires us to know what we are asking. Questions like <em>what 10 things should I study</em> won’t fly because we can’t write a query yet for <em>things</em> we don’t know we care about. We need some way to figure out what <em>things</em> in the questions are important.</p>
+
+<h2 id="named-entity-recognition">Named Entity Recognition</h2>
+<p>So what do I mean by <em>thing</em>? One naive solution to our problem might be to just look for common appearances of certain words. For example, if “America” appears regularly in questions, then that might be an important country to study, right? Well, practiced trivia players know that trivia is all about going more fine-grained than that. American History may be a very important subject to study, but at the end of the day, you may need to know some specifics about Hamilton that you may gloss over if you only study American History broadly.</p>
+
+<p>Consider another issue of the word count solution, it may tell you that it is quite important to know about “Alexander”, but <em>Alexander-who?</em> Alexander Hamilton and Alexander the Great might both be important, but the word count solution doesn’t tell us who is <em>more</em> important.</p>
+
+<p><img src="/assets/images/posts/2020-10-15/3.png" alt="Alexander Hamilton and Alexander the Great are hooked up by their craniums to an apperatus that has determined they are both named &quot;Alexander&quot;." /></p>
+
+<p>Another idea is to use the <code class="language-plaintext highlighter-rouge">category</code> of a question. That should help us get to the meat of what a question is about, but viewers of Jeopardy! will know well that the category is usually not useful, if not downright distracting. Categories like “African Geography” are way too broad to be useful. Meanwhile, many of the Jeapordy! categories are unique to the game, playful rhymes or word games.</p>
+
+<p>In general, it looks like we are trying to extract people, places, times, etc. from the questions. In Natural Language Processing (NLP) there is a name for annotating this type of information, “Named Entity Recognition”. Fortunately there are handy Python libraries out there like <a href="https://spacy.io/api/entityrecognizer">spaCy</a> that can do the heavy lifting for this.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Reference https://towardsdatascience.com/named-entity-recognition-with-nltk-and-spacy-8c4a7d88e7da
+</span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">en_core_web_sm</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">en_core_web_sm</span><span class="p">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">printAnnotation</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">([(</span><span class="n">X</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">label_</span><span class="p">)</span> <span class="k">for</span> <span class="n">X</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">.</span><span class="n">ents</span><span class="p">])</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="s">'"The Prince of Egypt" featured Ralph Fiennes as the voice of this stubborn ruler'</span>
+<span class="n">printAnnotation</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[('The Prince of Egypt', 'WORK_OF_ART'), ('Ralph Fiennes', 'PERSON')]
+</code></pre></div></div>
+
+<p>Here we can see spaCy was able to identify to named entities in this question, “The Prince of Egypt” was labeled as a work of art (animated film, go watch it), and “Ralph Fiennes” was labeled as a person. This works pretty well generally, but it isn’t perfect. For example, below it has decided that “Israel &amp; Egypt &amp; Syria” are an organization all-together. Hopefully these things will <em>come out in the wash</em> so to speak, but we should keep an eye out for misleading entities.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">q</span> <span class="o">=</span> <span class="s">"A short war between Israel &amp; Egypt &amp; Syria in October 1973 was named for this high holiday"</span>
+<span class="n">printAnnotation</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[('Israel &amp; Egypt &amp; Syria', 'ORG'), ('October 1973', 'DATE')]
+</code></pre></div></div>
+
+<h2 id="mapping-questions-to-named-entities">Mapping Questions to Named Entities</h2>
+<p>Next thing to do to get an idea of which named entities occur frequently, we want to map questions and answer text to named entities. For this, we need a new table to track those entities and their labels, as well as a mapping table to handle the many to many relationship of question to named_entity. For those of you who aren’t familiar with the idea of using mapping tables for many to many relationships in normalized databases, check out <a href="https://www.joinfu.com/2005/12/managing-many-to-many-relationships-in-mysql-part-1/">this post</a>.</p>
+
+<p><img src="/assets/images/posts/2020-10-15/4.png" alt="Entity relationship diagram describing the many to many relationship problem given two entities. It shows an example without mapping, and then with a mapping table." /></p>
+
+<p>With that in place, we can set up some templated queries using template literals in Python. Establishing these common uses up front will allow us to get some reuse out of them as we go through the remainder of the project.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Query to get all questions from question table with limit and offset to paginate
+</span><span class="n">get_all_questions</span> <span class="o">=</span> <span class="p">(</span><span class="s">"SELECT question_id, question, answer FROM question LIMIT %s OFFSET %s"</span><span class="p">)</span>
+
+<span class="c1"># Queries to wipe out tables before re-seeding
+</span><span class="n">delete_mappings</span> <span class="o">=</span> <span class="s">"DELETE FROM question_entity_map"</span>
+<span class="n">delete_entities</span> <span class="o">=</span> <span class="s">"DELETE FROM entity"</span>
+
+<span class="c1"># Queries to add named entities and mappings
+</span><span class="n">add_entity</span> <span class="o">=</span> <span class="p">(</span><span class="s">"INSERT INTO entity (name, label) VALUES (%s, %s)"</span><span class="p">)</span>
+<span class="n">add_mapping</span> <span class="o">=</span> <span class="p">(</span><span class="s">"INSERT INTO question_entity_map (question, entity) VALUES (%s, %s)"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The code below will seed our two new tables. It goes question by question and looks for named entities that it hasn’t seen before and adds them to the <code class="language-plaintext highlighter-rouge">entity</code> table. It doesn’t add the entity if it is a recurrence. In any case it adds a mapping to the question in the <code class="language-plaintext highlighter-rouge">question_entity_map</code> mapping table. First it needs to clear out whatever was seeded previously. I paginated the operation so that it doesn’t do one <strong>huge</strong> insert, but this can be controlled by tweaking the limit and offset variables.</p>
+
+<p>Go get a cup of coffee while this one runs.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">regex</span>
+<span class="kn">import</span> <span class="nn">unidecode</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">en_core_web_sm</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">en_core_web_sm</span><span class="p">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="n">mydb</span> <span class="o">=</span> <span class="n">connectToMySQL</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Deleting previously seeded records..."</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">delete_mappings</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">delete_entities</span><span class="p">)</span>
+<span class="n">mydb</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="n">limit</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">end</span> <span class="o">=</span> <span class="mi">200000</span>
+<span class="n">data_entities</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">all_data_entities</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">data_mappings</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="o">/</span><span class="n">limit</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">end</span><span class="o">/</span><span class="n">limit</span><span class="p">)):</span>
+  <span class="n">offset</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">limit</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"Starting get for offset "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span> <span class="o">+</span> <span class="s">"..."</span><span class="p">)</span>
+  <span class="n">get_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+  <span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">get_all_questions</span><span class="p">,</span> <span class="n">get_data</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="n">question_id</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">unidecode</span><span class="p">.</span><span class="n">unidecode</span><span class="p">(</span><span class="n">regex</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="n">question</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">answer</span><span class="p">))</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">X</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">.</span><span class="n">ents</span><span class="p">:</span>
+        <span class="n">entity</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">data_entities</span><span class="p">:</span>
+          <span class="k">if</span> <span class="ow">not</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">all_data_entities</span><span class="p">:</span>
+            <span class="n">data_entities</span><span class="p">[</span><span class="n">entity</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">label_</span>
+        <span class="n">data_mapping</span> <span class="o">=</span> <span class="p">(</span><span class="n">question_id</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span>
+        <span class="n">data_mappings</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_mapping</span><span class="p">)</span>
+
+  <span class="n">cursor</span><span class="p">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">add_entity</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data_entities</span><span class="p">.</span><span class="n">items</span><span class="p">())))</span>
+  <span class="n">mydb</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+  <span class="n">cursor</span><span class="p">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">add_mapping</span><span class="p">,</span> <span class="p">(</span><span class="n">data_mappings</span><span class="p">))</span>
+  <span class="n">mydb</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+
+  <span class="n">all_data_entities</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">all_data_entities</span><span class="p">,</span> <span class="o">**</span><span class="n">data_entities</span><span class="p">}</span> 
+  <span class="n">data_entities</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+  <span class="n">data_mappings</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Done, closing..."</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Connected.
+
+Deleting previously seeded records...
+Starting get for offset 0...
+Starting get for offset 5000...
+Starting get for offset 10000...]
+...
+Starting get for offset 190000...
+Starting get for offset 195000...
+Done, closing...
+
+True
+</code></pre></div></div>
+
+<p>With that in place, we should be able to query the mapping table for information about occurrences of certain named entities in questions. In fact, the entities with the highest count in the mapping table are those entities that appeared most commonly in questions. We can write a rudimentary query to try to answer our original question.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mydb</span> <span class="o">=</span> <span class="n">connectToMySQL</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"SELECT entity, COUNT(*) FROM question_entity_map GROUP BY entity ORDER BY COUNT(*) DESC LIMIT 10;"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+    
+<span class="n">cursor</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Connected.
+
+('first', 4385)
+('one', 3134)
+('2', 2453)
+('u.s.', 2210)
+('french', 1258)
+('3', 1059)
+('british', 958)
+('1', 889)
+('greek', 772)
+('american', 766)
+
+True
+</code></pre></div></div>
+
+<p>We’re getting closer. Not too surprisingly, we see frequent occurences of what look like geographic or linguistic designations. French, American, British, and Greek. There also appear to be cardinal numbers, as well as some ordinal numbers like First and Second. Let’s look into the labels for some of these frequently appearing entities. To do this, we need to be able to pull back data from <code class="language-plaintext highlighter-rouge">question</code>, but also take into account the label in the <code class="language-plaintext highlighter-rouge">entity</code> table. We can write a join to look for questions containing named entities with those labels.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Join to pull data from question table and entity table linked by mapping table
+</span><span class="n">get_question_by_entity_type</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">"SELECT question.question, entity.label FROM question_entity_map "</span> <span class="o">+</span> 
+    <span class="s">"LEFT JOIN question ON question.question_id = question_entity_map.question "</span> <span class="o">+</span>
+    <span class="s">"LEFT JOIN entity ON question_entity_map.entity = entity.name "</span> <span class="o">+</span>
+    <span class="s">"WHERE question_entity_map.entity = '%s' LIMIT 5;"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Using that we can query for various questions including entities that seem off, and see what their labels are.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mydb</span> <span class="o">=</span> <span class="n">connectToMySQL</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'american:'</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">get_question_by_entity_type</span> <span class="o">%</span> <span class="s">'american'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+<span class="k">print</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'first:'</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">get_question_by_entity_type</span> <span class="o">%</span> <span class="s">'first'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+<span class="k">print</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'one:'</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">get_question_by_entity_type</span> <span class="o">%</span> <span class="s">'one'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+<span class="k">print</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Connected.
+
+american:
+('\'"American poet... became known as a leader of the Beat literary movement of the 1950s""\'"', 'NORP')
+('\'"One of the most original and provocative American architects working today""\'"', 'NORP')
+("'Sukkot, a Jewish festival, began as a harvest celebration &amp; was a model for this centuries-old American holiday'", 'NORP')
+("'This astronomer for whom a space telescope is named is honored in the American Scientists series'", 'NORP')
+("'O Canada celebrates Canada Day on this date, 3 days before a big American holiday'", 'NORP')
+
+first:
+("'Cows regurgitate this from the first stomach to the mouth &amp; chew it again'", 'ORDINAL')
+("'Karl led the first of these Marxist organizational efforts; the second one began in 1889'", 'ORDINAL')
+('\'This "Modern Girl"" first hit the Billboard Top 10 with ""Morning Train (Nine To Five)""\'"', 'ORDINAL')
+("'Warhol became the manager of this Lou Reed rock group in 1965 &amp; produced their first album'", 'ORDINAL')
+("'His first act after being sworn in as president of the Confederacy was to send a peace commission to Washington, D.C.'", 'ORDINAL')
+
+one:
+("'In geologic time one of these, shorter than an eon, is divided into periods &amp; subdivided into epochs'", 'CARDINAL')
+('\'Teri Hatcher looked "shipshape"" as one of the singing ""mermaids"" who jumped on board this cruisin\' series in 1985\'"', 'CARDINAL')
+('\'One edition calls this Darwin opus one of "the most readable and approachable"" of revolutionary scientific works\'"', 'CARDINAL')
+('\'One edition calls this Darwin opus one of "the most readable and approachable"" of revolutionary scientific works\'"', 'CARDINAL')
+("'If Joe DiMaggio's hitting streak had gone one more game in 1941, this company would have given him a $10,000 contract'", 'CARDINAL')
+
+True
+</code></pre></div></div>
+
+<p>It looks like there are some entity labels that we can rule out. “ORDINAL”, “CARDINAL”, and “NORP” appear to be presenting an issue already. At this point, one might start to wonder if it is less about entity labels we don’t care about, and more about the few we <em>do</em> care about.</p>
+
+<p>Interestingly, the first appearance of a topic that feels truly <em>trivial</em> in nature is “The Clue Crew” with 363 occurrences in questions. Looking closely to see how it is labeled, “The Clue Crew” (the group from the Nancy Drew childrens book series) is an “ORG”. Glancing through some of the common labels, it looks like we might care about “PERSON”, “ORG” and “WORK_OF_ART” at least as a start.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mydb</span> <span class="o">=</span> <span class="n">connectToMySQL</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="s">"SELECT entity.name, COUNT(*) FROM question_entity_map "</span> <span class="o">+</span> 
+    <span class="s">"LEFT JOIN entity ON question_entity_map.entity = entity.name "</span> <span class="o">+</span>
+    <span class="s">"WHERE entity.label IN ('ORG','PERSON','WORK_OF_ART')"</span> <span class="o">+</span>
+    <span class="s">"GROUP BY entity ORDER BY COUNT(*) DESC LIMIT 10;"</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+
+<span class="n">cursor</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Connected.
+
+('oscar', 356)
+('congress', 213)
+('nyc', 194)
+('the clue crew', 175)
+('shakespeare', 164)
+('senate', 148)
+('jesus', 137)
+('nba', 129)
+('lincoln', 129)
+('nfl', 123)
+
+True
+</code></pre></div></div>
+
+<p>Looks like someone looking to up their Jeopardy! game (or any well-rounded individual I suppose), should spend some time reading up on the Oscars, the U.S. Congress, NYC, Shakespeare, and Jesus. Or at least, those are some highly frequent entities in questions. This gives a mostly satisfying answer to the original, but leaves a little bit to be desired.</p>
+
+<p>Let me point out a couple of problems. “The Oscars”, again, is a pretty broad category. Might be good to know it is worth going and memorizing, as far as award shows go, but it isn’t quite as concrete as “Lincoln”. Actually most of these results are organizations worth mentioning in a question, but not necessarily the topic of the question.</p>
+
+<p>This also doesn’t necessarily get at which topics are best to study for Jeopardy!. Some other factors could come into play. As an example, reading all of “Shakespeare” is a lot of work, wouldn’t it be nice to know that he is only marginally more necessary than “Harry Potter”, but slightly less niche?</p>
+
+<p><img src="/assets/images/posts/2020-10-15/5.png" alt="Cartesian coordinate diagram plotting categories of questions based on being more or less niche, and more or less frequent. The best categories to study would be both high frequency, and specific." /></p>
+
+<h2 id="what-next">What next?</h2>
+
+<p>I hinted at it above, but it looks like there are a couple of fast follows for this analysis.</p>
+
+<ol>
+  <li>We need to figure out how to get to the “meat” of what a question is about. That way we can avoid tangential but highly occurring entities. I need to do some research on what is out there, but basically I want to be able to tell what is the central “Wikipediable” topic of every question, and count occurrences from there.</li>
+  <li>Wouln’t it be really nice to know about how niche something is as a piece of data about the topic? If we had that, we could do some kind of composite rank. Highly occurring topics that are less broad would be the easiest to study quickly, thus rewarding the player the most.</li>
+</ol>
+
+<p>I’m thinking I’ll need to address those ideas in another post. Until then, play on.</p>
+
+    <p>A code example project for this article can be found <a href="https://github.com/hicks2evan/blog-code-examples/tree/master/2020-10-15">here</a>.</p>
+  </div>
+
+    </div>
+  </div>
+
+
+    <div class="footer">
+      <a href="/about">About Evan</a> |
+      <a href="/assets/documents/Hicks_Evan_Resume.pdf" target="_blank">Resume</a>
+    </div>
+  </body>
+</html>
+

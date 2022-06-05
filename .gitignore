@@ -1,6 +1,8 @@
 *.gem
 .bundle
 .sass-cache
-_site/
 Gemfile.lock
 **/.ruby-version
+.idea
+*.DS_Store
+_site/
