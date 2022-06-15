@@ -1,8 +1,8 @@
 ---
 title: "Git thoughts"
 subtitle: "Git things I do often enough to write about"
-published: false
-image_url: "featured/default.png"
+published: true
+image_url: "featured/2022-06-15.png"
 ---
 
 # whoami
@@ -10,6 +10,8 @@ image_url: "featured/default.png"
 I’m by no means an expert at Git, but as a daily user for the last 5 years let me assure you that you don’t need to know a ton about the working internals to get by day-to-day. I decided I would write this post to call attention to some commands I use most regularly and how I think about them conceptually.
 
 This is not a Git cheatsheet for when you monkey up like [Oh Shit, Git!?!](https://ohshitgit.com/) and it itsn’t really a [best practices recommendation](https://sethrobertson.github.io/GitBestPractices/) either. Just a dude who thinks it’s fun to explain how he thinks about Git.
+
+![A sketch of the git logo from git-scm.com/](/assets/images/posts/2022-06-15/1.png)
 
 # Local and remote
 
@@ -59,6 +61,8 @@ This command plops the history of your working branch onto `branch`. Magic! Well
 
 - You have tons of commits - Rebasing rewrites history for each commit as if it were applied one by one to `branch`, not to the working branch’s history. If there are conflicts, you resolve them per commit. So if you have been making tons of itsy bitsy commits in the fame files, you may have to resolve similar conflicts over and over before you can `rebase --continue`
 - You have to force push - Rewriting history means you have to push that new version of history to the central location. I don’t think Linus Torvalds would approve, but if you can convince your team to always `pull -r` and you are careful, it works pretty well.
+
+![Two documents with different edits](/assets/images/posts/2022-06-15/2.png)
 
 # Merge conflicts
 
