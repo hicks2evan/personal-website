@@ -3,6 +3,7 @@ title: "Git thoughts"
 subtitle: "Git things I do often enough to write about"
 published: true
 image_url: "featured/2022-06-15.png"
+code_sample: false
 ---
 
 # whoami

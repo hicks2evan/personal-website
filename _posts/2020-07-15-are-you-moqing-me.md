@@ -3,6 +3,7 @@ title: "Are you Moqing me?"
 subtitle: "C# unit testing with moq"
 published: true
 image_url: "featured/2020-07-15.png"
+code_sample: true
 ---
 When I was looking for my first job in software I interviewed with a company who had me build a simple web application as a take-home section of the interview. I did what I had learned to do in my classes and in my personal projects- fork their interview repo, run a scaffolding generator ([Yeoman](https://yeoman.io/) for Angular, which I would still recommend) and code, code, code!
 

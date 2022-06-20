@@ -3,6 +3,7 @@ title: "Trivial Analytics"
 subtitle: "Extracting data about common Jeopardy! topics using Python"
 published: true
 image_url: "featured/2020-10-15.png"
+code_sample: true
 ---
 
 The purpose of this post is to try to use some data analytics to answer a question that came up in a conversation between me and my trivia teammates. Before the coronavirus put our favorite bar trivia night on hold, my friends and I had a ritual of appearing there every Wednesday night at 7pm and answering 8 rounds of trivia questions on a variety of [geek pop-culture subjects](https://www.geekswhodrink.com/). The question that arose at our table was along these lines:
