@@ -1,7 +1,7 @@
 ---
 title: "Check your diagrams"
 subtitle: "before you wreck your diagrams"
-published: false
+published: true
 image_url: "featured/default.png"
 code_sample: false
 ---
