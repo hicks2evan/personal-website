@@ -2,7 +2,7 @@
 title: "Check your diagrams"
 subtitle: "before you wreck your diagrams"
 published: true
-image_url: "featured/default.png"
+image_url: "featured/2022-07-01.png"
 code_sample: false
 ---
 
@@ -10,28 +10,40 @@ code_sample: false
 
 This is a post about trying to find a nice way to combat issues around keeping diagrams fresh using “documentation as code”. The motivation comes from complaints you may have heard before from the usual suspects:
 
-> “Our diagrams quickly fall out of sync with the code we have written”— a developer whose diagram is probably too code-y
->
+| ![A smug javascript developer saying the quote below](/assets/images/posts/2022-07-01/1.png) |
+|:--:|
+| “Our diagrams quickly fall out of sync with the code we have written” |
+| — a developer whose diagram is probably too code-y |
 
-> “Diagramming takes time and our product is evolving quickly, we prefer to spend our time shipping features”— a leader not invested in code transparency
->
+| ![A frantic engineering manager saying below quote in front of a Gantt chart](/assets/images/posts/2022-07-01/2.png) |
+|:--:|
+| “Diagramming takes time and our product is evolving quickly, we prefer to spend our time shipping features”
+| — a leader not invested in code transparency |
+| | 
 
 I believe that diagrams serve as a tool for you to explain the design of your system and code at an abstract level. They help you get on the same page as your teammates and communicate what you’ve built at [multiple levels of detail](https://c4model.com/).
 
 Despite the importance, many teams setting out with the noble intent of providing helpful information in the form of diagrams are reportedly running into [documentation rot](https://remotejavadev.com/documentation-rot/), in this case a particularly insidious form of rot. This can be observed in anecdotes from the not-so-usual suspects:
 
-> “I shouldn’t need to tell a drawing tool where to place boxes and lines when *ideas* change. I’m just trying to keep an accurate picture of ideas”— an architect tired of drawing diagrams
->
+| ![A dismayed software architect saying the below quote](/assets/images/posts/2022-07-01/3.png) |
+|:--:|
+| “I shouldn’t need to tell a drawing tool where to place boxes and lines when *ideas* change. I’m just trying to keep an accurate picture of ideas”
+| — an architect tired of drawing diagrams |
 
-> “[that architect who left a year ago] left the diagram as a JPG in a Powerpoint”— a senior engineer who is reluctant to expand on that diagram
->
+| ![A frustrated senior engineer saying the below quote](/assets/images/posts/2022-07-01/4.png) |
+|:--:|
+| “[that architect who left a year ago] left the diagram as a freaking PDF” |
+| — a senior engineer who is reluctant to expand on that diagram |
+| |
 
+Or...
 > “I can’t catch mistakes in diagrams on our wiki because the diagrams aren’t text-searchable”— AFAIK nobody said this but I think it’s salient
->
 
 Diagrams are uniquely hard to keep fresh. Even with nice tooling like embedded diagrams that can be updated over time, you are still asking your heroic custodians of correctness to switch gears into a box and line drawing tool every time they spot something on a diagram that looks fishy, that is *if they spot it*.
 
 # Diagrams as code to the rescue
+
+![A cute cartoon drawing of the PlantUML logo](/assets/images/posts/2022-07-01/6.png)
 
 Well… sort of to the rescue. A cogent argument that is out there in the industry is that by incorporating tooling like [PlantUML](https://plantuml.com/) into your development workflow, specifications of your diagrams can live as text files alongside your code. As a result, those sweet stewards of your project we call “developers” will keep diagrams tidy at the same time they make code changes. I can see several specific benefits of this:
 
@@ -51,6 +63,8 @@ Beyond these issues of ergonomics, diagrams as code introduce a larger philosoph
 This is not a blog post about generated diagrams. Generated diagrams are an insult to the institution of human knowledge.
 
 # A map analogy
+
+![A cartoon of a map](/assets/images/posts/2022-07-01/5.png)
 
 Here’s another way to think about it. A diagram is like a map.
 

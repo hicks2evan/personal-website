@@ -12,7 +12,7 @@ I’m by no means an expert at Git, but as a daily user for the last 5 years let
 
 This is not a Git cheatsheet for when you monkey up like [Oh Shit, Git!?!](https://ohshitgit.com/) and it itsn’t really a [best practices recommendation](https://sethrobertson.github.io/GitBestPractices/) either. Just a dude who thinks it’s fun to explain how he thinks about Git.
 
-![A sketch of the git logo from git-scm.com/](/assets/images/posts/2022-06-15/1.png)
+![A sketch of the git logo from git-scm.com](/assets/images/posts/2022-06-15/1.png)
 
 # Local and remote
 
